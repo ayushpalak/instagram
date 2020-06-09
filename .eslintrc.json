@@ -1,0 +1,12 @@
+
+{ "env": { "node": true,
+    "browser": true,
+     "es6": true },
+"parser": "babel-eslint", 
+"extends": "airbnb",
+"rules": { 
+   "react/jsx-filename-extension": [ 1, { "extensions": [ ".js", ".jsx" ] } ],
+   "linebreak-style": 0,
+   "global-require": 0,
+   "eslint linebreak-style": [0, "error", "windows"]
+} }
