@@ -1,6 +1,6 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component, useState } from 'react';
-import { Image, Dimensions } from 'react-native';
+import { Image, Dimensions, Alert } from 'react-native';
 import {
   Container, Content, List, ListItem, Button,
   InputGroup, Input, Picker, Text,
@@ -12,6 +12,8 @@ import {
 
 
 import { Grid, Row, Col } from 'react-native-easy-grid';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
 import {
   NUMBER_OF_POSTS, NUMBER_OF_FOLLOWERS, NUMBER_OF_FOLLOWING, INSTAGRAM_USERNAME, USER_BIO, USER_IMAGES,
 } from '../assets/constants';
@@ -24,11 +26,11 @@ const RenderProfilePicture = () => (
     style={{ justifyContent: 'center', alignItems: 'flex-start' }}
   >
     <Col style={{
-      width: 50, height: 50, borderRadius: 500, resizeMode: 'contain',
+      width: width * 0.16, height: width * 0.16, borderRadius: 500, resizeMode: 'contain',
     }}
     >
       <Image
-        source={require('../assets/profilepic.jpg')}
+        source={require('../assets/profilepic.png')}
         resizeMode="cover"
         style={{
           alignSelf: 'center',
@@ -41,19 +43,35 @@ const RenderProfilePicture = () => (
   </Col>
 );
 
-const RenderSingleGridImage = (props) => (
-  <Image
-    source={{ uri: props.uri }}
-    resizeMode="cover"
-    style={{
-      // use this to maintain aspect ratio
-      // width: (width - 2 * marginHorizontal) * 0.33,
-      // height: (width - 2 * marginHorizontal) * 0.33,
-      width: '100%',
-      height: '100%',
-    }}
-  />
-);
+const RenderSingleGridImage = (props) => {
+  const navigation = useNavigation();
+
+  return (
+    <TouchableOpacity
+      style={{
+        width: width / 3,
+        borderColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRightWidth: 1,
+        borderBottomWidth: 1,
+      }}
+      onPress={() => { navigation.push('post'); }}
+    >
+      <Image
+        source={{ uri: props.uri }}
+        resizeMode="cover"
+        style={{
+          // use this to maintain aspect ratio
+          // width: (width - 2 * marginHorizontal) * 0.33,
+          // height: (width - 2 * marginHorizontal) * 0.33,
+          width: '100%',
+          height: '100%',
+        }}
+      />
+    </TouchableOpacity>
+  );
+};
 const RenderGridRow = (props) => (
   <Row
     style={{
@@ -83,15 +101,13 @@ const RenderGridRow = (props) => (
 
 const RenderImageGrid = () => {
   const row = [];
-  const variableRow = [];
-
   const numberOfRows = Math.floor(USER_IMAGES.length / 3);
-
 
   for (let i = 0; i < numberOfRows + 1; i++) {
     row.push(
       <RenderGridRow
         ImageRow={[USER_IMAGES[i * 3], USER_IMAGES[i * 3 + 1], USER_IMAGES[i * 3 + 2]]}
+
       />,
     );
   }
@@ -166,7 +182,7 @@ const MiddleSection = () => (
   </Row>
 );
 
-const BottomSection = () => (
+const BottomSection = (props) => (
 
   <Row>
 
@@ -188,7 +204,7 @@ const BottomSection = () => (
           <AntDesign style={{ marginBottom: '5%' }} name="tagso" size={24} color="black" />
         </Col>
       </Row>
-      {RenderImageGrid().map((item) => item)}
+      {RenderImageGrid(props).map((item) => item)}
 
     </Col>
 
@@ -197,6 +213,7 @@ const BottomSection = () => (
 );
 class Profilescreen extends Component {
   render() {
+    // this.props.navigation.navigate('post');
     return (
       <Container>
         <Content>

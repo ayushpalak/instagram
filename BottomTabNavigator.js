@@ -6,15 +6,35 @@ import {
 } from '@expo/vector-icons';
 import { Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Homescreen from './screens/Homescreen';
 import Likescreen from './screens/Likescreen';
 import Profilescreen from './screens/Profilescreen';
 import Searchscreen from './screens/Searchscreen';
 import Addscreen from './screens/Addscreen';
+import Postscreen from './screens/Postscreen';
 
 
 const Tab = createBottomTabNavigator();
+
+const ProfileStack = createStackNavigator();
+
+function ProfileStackScreen() {
+  return (
+    <ProfileStack.Navigator>
+      <ProfileStack.Screen name="profile" component={Profilescreen} />
+      <ProfileStack.Screen name="post" component={Postscreen} />
+    </ProfileStack.Navigator>
+  );
+}
+
+function ProfilescreenHOC({ navigation }) {
+  return (
+    // <Homescreen navigation={navigation} />
+    <ProfileStackScreen navigation={navigation} />
+  );
+}
 
 function HomescreenHOC({ navigation }) {
   return (
@@ -27,11 +47,7 @@ function LikescreenHOC({ navigation }) {
     <Likescreen navigation={navigation} />
   );
 }
-function ProfilescreenHOC({ navigation }) {
-  return (
-    <Profilescreen navigation={navigation} />
-  );
-}
+
 function SearchscreenHOC({ navigation }) {
   return (
     <Searchscreen navigation={navigation} />

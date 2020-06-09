@@ -7,7 +7,7 @@ import {
 import { INSTAGRAM_USERNAME } from './assets/constants';
 
 export const loginOptions = () => ({
-  headerShown: false,
+  headerShown: true,
 
 });
 
@@ -24,6 +24,7 @@ export const headerOptions = ({ navigation }) => ({
     alignSelf: 'center',
   },
   title: INSTAGRAM_USERNAME,
+  headerShown: false,
   // headerLeft: () => (
   //   <TouchableOpacity onPress={() => {}} style={styles.headerLeftStyle}>
   //     <FontAwesome name="home" size={24} color="#ff72c7" />
