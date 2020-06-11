@@ -15,7 +15,7 @@ import { Grid, Row, Col } from 'react-native-easy-grid';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import {
-  NUMBER_OF_POSTS, NUMBER_OF_FOLLOWERS, NUMBER_OF_FOLLOWING, INSTAGRAM_USERNAME, USER_BIO, USER_IMAGES,
+  NUMBER_OF_POSTS, USER_IMAGES_WITH_PROP, INSTAGRAM_USERID, NUMBER_OF_FOLLOWERS, NUMBER_OF_FOLLOWING, INSTAGRAM_USERNAME, USER_BIO, USER_IMAGES, INSTAGRAM_PROFILE_IMAGE_SOURCE,
 } from '../assets/constants';
 
 const { width, height } = Dimensions.get('window');
@@ -30,7 +30,7 @@ const RenderProfilePicture = () => (
     }}
     >
       <Image
-        source={require('../assets/profilepic.png')}
+        source={INSTAGRAM_PROFILE_IMAGE_SOURCE}
         resizeMode="cover"
         style={{
           alignSelf: 'center',
@@ -56,7 +56,7 @@ const RenderSingleGridImage = (props) => {
         borderRightWidth: 1,
         borderBottomWidth: 1,
       }}
-      onPress={() => { navigation.push('post'); }}
+      // onPress={() => { navigation.push('post'); }}
     >
       <Image
         source={{ uri: props.uri }}
@@ -158,7 +158,7 @@ const TopSection = () => (
       </Row>
       <Row style={{ marginVertical: '1.5%' }}>
         <Col size={90} style={{ marginHorizontal: 4 }}>
-          <Button block style={{ backgroundColor: '#5496ff', borderRadius: 5, height: 'auto' }}><Text style={{ textTransform: 'capitalize' }}>Follow</Text></Button>
+          <Button block style={{ backgroundColor: '#5496ff', borderRadius: 5, height: 'auto' }}><Text onPress={() => toggleText(true)} style={{ textTransform: 'capitalize' }}>Follow</Text></Button>
         </Col>
         <Col size={10} style={{ marginRight: 4, backgroundColor: 'sky' }}>
           <Button block style={{ backgroundColor: '#5496ff', borderRadius: 5, height: 'auto' }}><Entypo name="triangle-down" size={18} color="white" /></Button>
@@ -213,7 +213,6 @@ const BottomSection = (props) => (
 );
 class Profilescreen extends Component {
   render() {
-    // this.props.navigation.navigate('post');
     return (
       <Container>
         <Content>

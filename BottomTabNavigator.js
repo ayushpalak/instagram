@@ -14,31 +14,39 @@ import Profilescreen from './screens/Profilescreen';
 import Searchscreen from './screens/Searchscreen';
 import Addscreen from './screens/Addscreen';
 import Postscreen from './screens/Postscreen';
-
+import Commentscreen from './screens/Commentscreen';
+import { INSTAGRAM_PROFILE_IMAGE_SOURCE } from './assets/constants';
+import {
+  postHeaderOptions, profileHeaderOptions, commentHeaderOptions, homeHeaderOptions,
+} from './route';
 
 const Tab = createBottomTabNavigator();
 
 const ProfileStack = createStackNavigator();
+const HomeStack = createStackNavigator();
 
 function ProfileStackScreen() {
   return (
     <ProfileStack.Navigator>
-      <ProfileStack.Screen name="profile" component={Profilescreen} />
-      <ProfileStack.Screen name="post" component={Postscreen} />
+      <ProfileStack.Screen name="profile" component={Profilescreen} options={profileHeaderOptions} />
+      <ProfileStack.Screen name="post" component={Postscreen} options={postHeaderOptions} />
+      <ProfileStack.Screen name="comment" component={Commentscreen} options={commentHeaderOptions} />
     </ProfileStack.Navigator>
   );
 }
 
 function ProfilescreenHOC({ navigation }) {
   return (
-    // <Homescreen navigation={navigation} />
     <ProfileStackScreen navigation={navigation} />
   );
 }
 
 function HomescreenHOC({ navigation }) {
   return (
-    <Homescreen navigation={navigation} />
+    <HomeStack.Navigator>
+      <HomeStack.Screen name="hometab" component={Homescreen} options={homeHeaderOptions} />
+      <HomeStack.Screen name="comment" component={Commentscreen} options={commentHeaderOptions} />
+    </HomeStack.Navigator>
   );
 }
 
@@ -94,22 +102,24 @@ export default function TabNavigator() {
               if (focused) {
                 return (
                   <Image
-                    source={require('./assets/profilepic.jpg')}
+                    source={INSTAGRAM_PROFILE_IMAGE_SOURCE}
                     style={{
-                      width: 25, height: 25, borderRadius: 500, borderWidth: 2, borderColor: 'black',
+                      width: 25, height: 25, borderRadius: 500, borderWidth: 1, borderColor: 'black',
                     }}
                   />
                 );
               }
               return (
                 <Image
-                  source={require('./assets/profilepic.jpg')}
-                  style={{ width: 25, height: 25, borderRadius: 500 }}
+                  source={INSTAGRAM_PROFILE_IMAGE_SOURCE}
+                  style={{
+                    width: 25, height: 25, borderRadius: 500,
+                  }}
                 />
               );
 
             default:
-              iconName = focused ? 'home' : 'home';
+              iconName = focused ? 'Home' : 'Home';
           }
           // You can return any component that you like here!
           return <FontAwesome name={iconName} size={size} key={route.name} color={color} />;
@@ -121,13 +131,12 @@ export default function TabNavigator() {
         showLabel: false,
       }}
     >
-      <Tab.Screen name="Profile" component={ProfilescreenHOC} />
+
       <Tab.Screen name="Home" component={HomescreenHOC} />
       <Tab.Screen name="Search" component={SearchscreenHOC} />
       <Tab.Screen name="Add" component={AddscreenHOC} />
       <Tab.Screen name="Like" component={LikescreenHOC} />
-
-
+      <Tab.Screen name="Profile" component={ProfilescreenHOC} />
     </Tab.Navigator>
 
   );
