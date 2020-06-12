@@ -1,26 +1,26 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component, useState } from 'react';
 import {
-  Image, Dimensions, Platform, StatusBar,
+  Image, Dimensions,
 } from 'react-native';
 import {
-  Container, Content, List, ListItem, Button,
-  InputGroup, Input, Picker, Text,
+  Content,
+  Text,
 } from 'native-base';
 import {
-  Entypo, Ionicons, FontAwesome, FontAwesome5, AntDesign,
-  Fontisto, EvilIcons,
+  Entypo, FontAwesome5, AntDesign,
+
   SimpleLineIcons,
-  Feather,
+
 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
 import { Grid, Row, Col } from 'react-native-easy-grid';
-import {
-  NUMBER_OF_POSTS, INSTAGRAM_PROFILE_IMAGE_SOURCE, INSTAGRAM_USERID, NUMBER_OF_FOLLOWERS, NUMBER_OF_FOLLOWING, INSTAGRAM_USERNAME, USER_BIO, USER_IMAGES,
-} from '../assets/constants';
 
-const { width, height } = Dimensions.get('window');
+
+const { height } = Dimensions.get('window');
 
 const RenderImage = (props) => (
   <Col>
@@ -140,13 +140,27 @@ const RenderImageAction = (props) => {
 
 const RenderBottom50 = (props) => {
   // const [likes, setLikes] = useState(Math.ceil(Math.random() * 1000));
-  const [likes, setLikes] = useState(props.postProps.comments.length + Math.ceil(Math.random() * 1000));
+  const [likes, setLikes] = useState(
+    props.postProps.comments.length + Math.ceil(Math.random() * 1000),
+  );
   const [liked, setLiked] = useState('false');
   return (
     <Row>
       <Col>
-        <RenderImageAction postProps={props.postProps} likes={likes} setLikes={setLikes} setLiked={setLiked} liked={liked} />
-        <RenderPostAttributes postProps={props.postProps} likes={likes} setLikes={setLikes} setLiked={setLiked} liked={liked} />
+        <RenderImageAction
+          postProps={props.postProps}
+          likes={likes}
+          setLikes={setLikes}
+          setLiked={setLiked}
+          liked={liked}
+        />
+        <RenderPostAttributes
+          postProps={props.postProps}
+          likes={likes}
+          setLikes={setLikes}
+          setLiked={setLiked}
+          liked={liked}
+        />
       </Col>
     </Row>
   );
