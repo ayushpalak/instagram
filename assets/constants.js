@@ -2,7 +2,7 @@ export const INSTAGRAM_USERNAME = 'Ayush Palak';
 export const INSTAGRAM_USERID = 'ayush_palak';
 export const INSTAGRAM_PROFILE_IMAGE_SOURCE = (() => require('./profilepic.jpeg'))();
 export const INSTAGRAM_PROFILE_IMAGE_SOURCE_URI = 'https://media-exp1.licdn.com/dms/image/C5103AQGKJeNaXiT62A/profile-displayphoto-shrink_200_200/0?e=1595462400&v=beta&t=hQmT_HcIzXqN4Aay_pEQHyTb__cT_s1CAth_t6GgVb0';
-export const NUMBER_OF_FOLLOWERS = '12B';
+export const NUMBER_OF_FOLLOWERS = '377K';
 export const NUMBER_OF_FOLLOWING = '1.1M';
 export const USER_BIO = 'Life is a journey towards it\'s end. We have to live with the choices we make. What will you choose when you don\'t have choices.';
 export const USER_IMAGES = [

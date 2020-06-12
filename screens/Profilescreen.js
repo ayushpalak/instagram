@@ -101,15 +101,44 @@ const RenderGridRow = (props) => (
 
 const RenderImageGrid = () => {
   const row = [];
-  const numberOfRows = Math.floor(USER_IMAGES.length / 3);
+  const numberOfRows = Math.floor(USER_IMAGES_WITH_PROP.length / 3);
 
   for (let i = 0; i < numberOfRows + 1; i++) {
-    row.push(
-      <RenderGridRow
-        ImageRow={[USER_IMAGES[i * 3], USER_IMAGES[i * 3 + 1], USER_IMAGES[i * 3 + 2]]}
-        key={Math.random() * 100}
-      />,
-    );
+    // console.log(`${i * 3} ${USER_IMAGES_WITH_PROP[i * 3].url}`);
+    // console.log(`${i * 3 + 1} ${USER_IMAGES_WITH_PROP[i * 3 + 1].url}`);
+    // console.log(`${i * 3 + 2} ${USER_IMAGES_WITH_PROP[i * 3 + 2].url}`);
+    try {
+      if (USER_IMAGES_WITH_PROP[i * 3].url
+        && USER_IMAGES_WITH_PROP[i * 3 + 1].url
+        && USER_IMAGES_WITH_PROP[i * 3 + 2].url) {
+        row.push(
+          <RenderGridRow
+            ImageRow={[USER_IMAGES_WITH_PROP[i * 3].url,
+              USER_IMAGES_WITH_PROP[i * 3 + 1].url, USER_IMAGES_WITH_PROP[i * 3 + 2].url]}
+            key={Math.random() * 100}
+          />,
+        );
+      } else if (USER_IMAGES_WITH_PROP[i * 3].url
+        && USER_IMAGES_WITH_PROP[i * 3 + 1].url) {
+        row.push(
+          <RenderGridRow
+            ImageRow={[USER_IMAGES_WITH_PROP[i * 3].url,
+              USER_IMAGES_WITH_PROP[i * 3 + 1].url, USER_IMAGES_WITH_PROP[i * 3 + 1].url]}
+            key={Math.random() * 100}
+          />,
+        );
+      } else if (USER_IMAGES_WITH_PROP[i * 3].url) {
+        row.push(
+          <RenderGridRow
+            ImageRow={[USER_IMAGES_WITH_PROP[i * 3].url,
+              USER_IMAGES_WITH_PROP[i * 3].url, USER_IMAGES_WITH_PROP[i * 3].url]}
+            key={Math.random() * 100}
+          />,
+        );
+      }
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   return row;

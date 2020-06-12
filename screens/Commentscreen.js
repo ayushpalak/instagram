@@ -2,20 +2,17 @@
 import React, { Component, useState } from 'react';
 import { Image, Dimensions, KeyboardAvoidingView } from 'react-native';
 import {
-  Container, Content, List, ListItem, Button,
-  InputGroup, Input, Picker, Text,
+  Container, Content, Text,
 } from 'native-base';
 import {
-  Entypo, Ionicons, FontAwesome, FontAwesome5, AntDesign,
-  Fontisto, EvilIcons,
-  SimpleLineIcons,
-  Feather,
+  AntDesign,
+
 } from '@expo/vector-icons';
 
 import { Grid, Row, Col } from 'react-native-easy-grid';
 import CommentInput from './CommentInput';
 import {
-  NUMBER_OF_POSTS, INSTAGRAM_PROFILE_IMAGE_SOURCE_URI, INSTAGRAM_PROFILE_IMAGE_SOURCE, INSTAGRAM_USERID, NUMBER_OF_FOLLOWERS, NUMBER_OF_FOLLOWING, INSTAGRAM_USERNAME, USER_BIO, USER_IMAGES, USER_IMAGES_WITH_PROP,
+  INSTAGRAM_PROFILE_IMAGE_SOURCE_URI, INSTAGRAM_PROFILE_IMAGE_SOURCE, INSTAGRAM_USERID, NUMBER_OF_FOLLOWERS, NUMBER_OF_FOLLOWING, INSTAGRAM_USERNAME, USER_BIO, USER_IMAGES, USER_IMAGES_WITH_PROP,
 } from '../assets/constants';
 
 const RenderPostAttributesCaption = (props) => (

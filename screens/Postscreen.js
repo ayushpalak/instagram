@@ -94,7 +94,13 @@ const RenderImageAction = (props) => {
               onPress={() => {
                 setIconName(iconName === 'heart' ? 'hearto' : 'heart');
                 setIconColor(iconColor === 'black' ? 'red' : 'black');
-                props.setLikes(props.likes + 1);
+                if (props.liked) {
+                  props.setLikes(props.likes + 1);
+                  props.setLiked(false);
+                } else {
+                  props.setLikes(props.likes - 1);
+                  props.setLiked(true);
+                }
               }}
               size={28}
               color={iconColor}
@@ -135,11 +141,12 @@ const RenderImageAction = (props) => {
 const RenderBottom50 = (props) => {
   // const [likes, setLikes] = useState(Math.ceil(Math.random() * 1000));
   const [likes, setLikes] = useState(props.postProps.comments.length + Math.ceil(Math.random() * 1000));
+  const [liked, setLiked] = useState('false');
   return (
     <Row>
       <Col>
-        <RenderImageAction postProps={props.postProps} likes={likes} setLikes={setLikes} />
-        <RenderPostAttributes postProps={props.postProps} likes={likes} setLikes={setLikes} />
+        <RenderImageAction postProps={props.postProps} likes={likes} setLikes={setLikes} setLiked={setLiked} liked={liked} />
+        <RenderPostAttributes postProps={props.postProps} likes={likes} setLikes={setLikes} setLiked={setLiked} liked={liked} />
       </Col>
     </Row>
   );
