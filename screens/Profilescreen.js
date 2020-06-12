@@ -107,7 +107,7 @@ const RenderImageGrid = () => {
     row.push(
       <RenderGridRow
         ImageRow={[USER_IMAGES[i * 3], USER_IMAGES[i * 3 + 1], USER_IMAGES[i * 3 + 2]]}
-
+        key={Math.random() * 100}
       />,
     );
   }

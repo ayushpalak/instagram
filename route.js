@@ -88,7 +88,7 @@ export const commentHeaderOptions = ({ navigation }) => ({
     fontSize: 18,
     color: 'black',
     alignSelf: 'center',
-    marginLeft: -44,
+    // marginLeft: -44,
   },
   title: 'Comments',
   headerShown: true,
@@ -149,7 +149,7 @@ export const homeHeaderOptions = ({ navigation }) => ({
       name="paper-plane"
       size={24}
       color="black"
-      style={{ transform: [{ rotateZ: '18deg' }], paddingRight: 10, paddingTop: 6 }}
+      style={{ transform: [{ rotateZ: '18deg' }], paddingRight: 15, paddingTop: 6 }}
     />
   ),
 });
@@ -158,11 +158,11 @@ const styles = StyleSheet.create({
   headerLeftStyle: {
     // left: Dimensions.get('window').height < 667 ? '8%' : '70%',
     width: '100%',
-    marginLeft: 20,
+    paddingLeft: 20,
   },
   headerRightStyle: {
     // right: Dimensions.get('window').height < 667 ? '8%' : '50%',
     width: '100%',
-    marginRight: 10,
+    paddingRight: 10,
   },
 });

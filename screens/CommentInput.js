@@ -4,7 +4,9 @@ import {
   Container, Content, List, ListItem, Button,
   InputGroup, Input, Picker, Text, Label, Item, Form,
 } from 'native-base';
-import { TextInput, Platform, KeyboardAvoidingView } from 'react-native';
+import {
+  TextInput, Platform, KeyboardAvoidingView, InteractionManager,
+} from 'react-native';
 import {
   Entypo, Ionicons, FontAwesome, FontAwesome5, AntDesign,
   Fontisto, EvilIcons,
@@ -26,14 +28,15 @@ export default class CommentInput extends Component {
   }
 
   componentDidMount = () => {
-    this.textInput.focus();
+    // this.textInput.focus();
+    InteractionManager.runAfterInteractions(() => {
+      this.textInput.focus();
+    });
   }
 
   render() {
     return (
-    //   <KeyboardAvoidingView
-    //     behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    //   >
+
       <Col style={{
         paddingLeft: 20, paddingRight: 20,
       }}
@@ -48,23 +51,26 @@ export default class CommentInput extends Component {
             />
           </Col>
 
-          <Col style={{ width: 'auto', paddingLeft: 5 }}>
-
-            <TextInput
-              ref={(input) => { this.textInput = input; }}
-              placeholder={`Add a comment as ${INSTAGRAM_USERID}...`}
-              value={this.state.comment}
-              onChangeText={(comment) => this.setState({comment:comment})}
-              blurOnSubmit={false}
-            />
-
+          <Col style={{ width: '75%', paddingLeft: 5 }}>
+            <KeyboardAvoidingView behavior="position" enabled>
+              <TextInput
+                ref={(input) => { this.textInput = input; }}
+                placeholder={`Add a comment as ${INSTAGRAM_USERID}...`}
+                value={this.state.comment}
+                onChangeText={(comment) => this.setState({ comment })}
+                blurOnSubmit={false}
+              />
+            </KeyboardAvoidingView>
 
           </Col>
           <Col style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
             <Text
-              style={{ fontWeight: 'bold', color: '#5496ff' }}
+              style={{ fontWeight: 'bold', color: '#5496ff', flexWrap: 'wrap' }}
               onPress={
-                () => this.props.updateComment({ user: INSTAGRAM_USERID, comment: this.state.comment })
+                () => {
+                  this.props.updateComment({ user: INSTAGRAM_USERID, comment: this.state.comment });
+                  this.setState({ comment: '' });
+                }
               }
             >
               Post
@@ -73,7 +79,7 @@ export default class CommentInput extends Component {
 
         </Row>
       </Col>
-    //   </KeyboardAvoidingView>
+
     );
   }
 }

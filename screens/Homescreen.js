@@ -12,10 +12,9 @@ class Homescreen extends Component {
     return (
       <Container>
         <Content>
-          <Postscreen navigation={this.props.navigation} postProps={USER_IMAGES_WITH_PROP[0]} />
-          <Postscreen navigation={this.props.navigation} postProps={USER_IMAGES_WITH_PROP[5]} />
-          <Postscreen navigation={this.props.navigation} postProps={USER_IMAGES_WITH_PROP[2]} />
-          <Postscreen navigation={this.props.navigation} postProps={USER_IMAGES_WITH_PROP[3]} />
+          {
+            USER_IMAGES_WITH_PROP.map((item, index) => <Postscreen key={index} navigation={this.props.navigation} postProps={USER_IMAGES_WITH_PROP[index]} />)
+          }
         </Content>
       </Container>
     );

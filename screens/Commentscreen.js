@@ -1,6 +1,6 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component, useState } from 'react';
-import { Image, Dimensions } from 'react-native';
+import { Image, Dimensions, KeyboardAvoidingView } from 'react-native';
 import {
   Container, Content, List, ListItem, Button,
   InputGroup, Input, Picker, Text,
@@ -47,7 +47,7 @@ const RenderPostAttributesCaption = (props) => (
           width: '100%',
           marginLeft: 50,
           fontSize: 12,
-          borderTopWidth: 0.5,
+          borderTopWidth: 0.2,
           borderTopColor: 'grey',
           paddingTop: 15,
         }}
@@ -77,7 +77,7 @@ const Comment = (props) => {
       </Col>
       <Col
         style={{
-          borderTopWidth: 0.5,
+          borderTopWidth: 0.2,
           borderTopColor: 'grey',
           paddingVertical: 10,
           width: '100%',
@@ -94,13 +94,15 @@ const Comment = (props) => {
             </Row>
             <Row style={{ marginVertical: 10 }}>
               <Col style={{ width: 30, justifyContent: 'center', alignItems: 'flex-start' }}>
-                <Text note style={{ fontSize: 12 }}>5w</Text>
+                <Text note style={{ fontSize: 12 }}>{props.timestamp}</Text>
               </Col>
-              <Col style={{ width: 50, justifyContent: 'center', alignItems: 'flex-start' }}>
-                <Text note style={{ fontSize: 12 }}>1k likes</Text>
-              </Col>
+              {props.likes != '0' ? (
+                <Col style={{ width: 50, justifyContent: 'center', alignItems: 'flex-start' }}>
+                  <Text note style={{ fontSize: 12 }}>{`${props.likes} likes`}</Text>
+                </Col>
+              ) : null}
               <Col style={{
-                justifyContent: 'center', alignItems: 'flex-start',
+                justifyContent: 'center', alignItems: 'flex-start', paddingLeft: 4,
               }}
               >
                 <Text note style={{ fontSize: 12 }}>Reply</Text>
@@ -117,7 +119,6 @@ const Comment = (props) => {
               >
                 <AntDesign
                   name={iconName}
-                  onPress={() => { setIconName(iconName === 'heart' ? 'hearto' : 'heart'); setIconColor(iconColor === 'black' ? 'red' : 'black'); }}
                   size={15}
                   color={iconColor}
                 />
@@ -146,7 +147,9 @@ export default class Commentscreen extends Component {
   updateComment = (comment) => {
     const old_user_image_with_prop = { ...this.state.user_image_with_prop };
     const { comments } = old_user_image_with_prop;
-    const updatedComments = comments.concat({ ...comment, addedBySelf: true });
+    const updatedComments = comments.concat({
+      ...comment, addedBySelf: true, likes: 0, timestamp: '0s',
+    });
     const new_user_image_with_prop = { ...old_user_image_with_prop, comments: updatedComments };
     this.setState({
       user_image_with_prop: new_user_image_with_prop,
@@ -163,14 +166,25 @@ export default class Commentscreen extends Component {
                 <Col style={{ paddingVertical: 10, paddingLeft: 20 }}>
                   <RenderPostAttributesCaption caption={this.state.user_image_with_prop.caption} />
                   {
-                    this.state.user_image_with_prop.comments.map((commentObj, index) => <RenderComments comment={commentObj.comment} userId={commentObj.user} addedBySelf={commentObj.addedBySelf} />)
+                    this.state.user_image_with_prop.comments.map((commentObj, index) => (
+                      <RenderComments
+                        key={index}
+                        comment={commentObj.comment}
+                        userId={commentObj.user}
+                        addedBySelf={commentObj.addedBySelf}
+                        likes={commentObj.likes}
+                        timestamp={commentObj.timestamp}
+                      />
+                    ))
                   }
                 </Col>
               </Content>
             </Row>
             <Row size={10}>
               <Col>
+
                 <CommentInput ref={this.myRef} updateComment={this.updateComment} />
+
               </Col>
             </Row>
           </Col>
